@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Python Compiler</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🐍 Online Python Compiler</h1>
+    <p class="subtitle">Write, Run & Debug Python Code Online</p>
+
+    <div class="card">
+
+        <form action="/run" method="POST">
+
+            <h2>Your Code</h2>
+
+            <textarea name="code">{{ code or '' }}</textarea>
+
+            <div class="buttons">
+                <button type="submit">▶ Run Code</button>
+                <button type="button" onclick="copyCode()">📋 Copy Code</button>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div class="card output-card">
+
+        <h2>📦 Output</h2>
+
+        {% if output and "Error" in output %}
+            <pre class="error">{{ output }}</pre>
+        {% else %}
+            <pre>{{ output or 'Run your code to see output...' }}</pre>
+        {% endif %}
+        <div class="time-box">
+    ⏱ Execution Time: {{ execution_time or 0 }} seconds
+</div>
+
+    </div>
+
+</div>
+
+<script>
+function copyCode() {
+    const code = document.querySelector("textarea");
+    code.select();
+    document.execCommand("copy");
+    alert("Code copied!");
+}
+</script>
+
+</body>
+</html>
